@@ -34,7 +34,7 @@ class AbsensiKeluarController extends Controller
                 ->whereRaw("ST_Distance_Sphere(
                             Point($request->long, $request->lat),
                             Point(lng, lat)
-                        ) <  ? ", 100)
+                        ) <  ? ", 500)
                 ->first();
 
         $img = $request->image;

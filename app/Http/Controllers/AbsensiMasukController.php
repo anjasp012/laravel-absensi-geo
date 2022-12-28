@@ -28,7 +28,7 @@ class AbsensiMasukController extends Controller
         ->whereRaw("ST_Distance_Sphere(
                     Point($request->long, $request->lat),
                     Point(lng, lat)
-                ) <  ? ", 100)
+                ) <  ? ", 500)
         ->first();
 
         $request->validate([
@@ -50,22 +50,25 @@ class AbsensiMasukController extends Controller
         $inputVal['tanggal'] = Carbon::today();
         $inputVal['foto_masuk'] = $filePath;
         $inputVal['catatan_masuk'] = $request->catatan;
-        $masuk = now();
+        $masuk = now()->toTimeString();
         $inputVal['waktu_masuk'] = $masuk;
         if ($masuk > $settingJam->jam_masuk) {
             $inputVal['keterangan_masuk'] = 'Terlambat';
         }
 
-        // dd($inputVal);
-
-        if ($lokasi) {
-            Storage::put($file, $image_base64);
-            Absensi::create($inputVal);
-            alert()->success('Berhasil Absesnsi');
-            return redirect(route('absensi.index'));
-        } else {
-            alert()->error('Gagal Absesnsi', 'Anda diluar jangkauan kantor');
+        if ($masuk > $settingJam->batas_jam_masuk) {
+            alert()->error('Absesnsi Ditolak', 'Anda absen diluar jam masuk silahkan hubungi admin');
             return redirect()->back();
+        } else {
+            if ($lokasi) {
+                Storage::put($file, $image_base64);
+                Absensi::create($inputVal);
+                alert()->success('Berhasil Absesnsi');
+                return redirect(route('absensi.index'));
+            } else {
+                alert()->error('Gagal Absesnsi', 'Anda diluar jangkauan kantor');
+                return redirect()->back();
+            }
         }
     }
 }

@@ -26,17 +26,22 @@
                 @method('PATCH')
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="mb-3">
-                            @if (Request::routeIs('jam-masuk'))
+                        @if (Request::routeIs('jam-masuk'))
+                            <div class="mb-3">
                                 <label for="jam" class="form-label text-black">Jam Masuk</label>
-                            @else
+                                <input type="time" name="jam" class="form-control" value="{{ old('jam', date('H:i', strtotime($jam->jam_masuk))) }}">
+                            </div>
+                            <div class="mb-3">
+                                <label for="jam" class="form-label text-black">Batas Jam Masuk</label>
+                                <input type="time" name="batas_jam_masuk" class="form-control" value="{{ old('batas_jam_masuk', date('H:i', strtotime($jam->batas_jam_masuk))) }}">
+                            </div>
+                        @else
+                            <div class="mb-3">
                                 <label for="jam" class="form-label text-black">Jam Keluar</label>
-                            @endif
-                            <input type="time" name="jam" class="form-control" value="{{ old('jam', date('H:i', strtotime($jam))) }}">
-                        </div>
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                        </div>
+                                <input type="time" name="jam" class="form-control" value="{{ old('jam', date('H:i', strtotime($jam))) }}">
+                            </div>
+                        @endif
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </div>
             </form>

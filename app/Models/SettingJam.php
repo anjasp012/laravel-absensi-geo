@@ -11,7 +11,7 @@ class SettingJam extends Model
 
     protected $table = 'setting_jam';
 
-    protected $fillable = ['jam_masuk', 'jam_pulang'];
+    protected $fillable = ['jam_masuk', 'batas_jam_masuk', 'jam_pulang'];
 
     public $timestamps = false;
 }

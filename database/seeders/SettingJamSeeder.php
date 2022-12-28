@@ -16,6 +16,7 @@ class SettingJamSeeder extends Seeder
     {
         SettingJam::create([
             'jam_masuk' => '08:00',
+            'batas_jam_masuk' => '08:20',
             'jam_pulang' => '17:00',
         ]);
     }

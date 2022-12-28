@@ -19,8 +19,7 @@ class SettingController extends Controller
     public function jamMasuk()
     {
         $jam = SettingJam::firstOrCreate();
-        $jam = $jam->jam_masuk;
-        return view('page.admin.setting.jam.index', compact('jam'));
+        return view('page.admin.setting.jam.index', compact('jam', ));
     }
 
     public function jamKeluar()
@@ -47,8 +46,6 @@ class SettingController extends Controller
             alert()->error('Gagal Update Lokasi');
             return redirect()->back();
         }
-
-
     }
     public function storeJamMasuk(Request $request)
     {
@@ -56,9 +53,11 @@ class SettingController extends Controller
         $jamMasuk = SettingJam::firstOrCreate();
         $request->validate([
             'jam' => ['required'],
+            'batas_jam_masuk' => ['required'],
         ]);
 
         $inputVal['jam_masuk'] = $request->jam;
+        $inputVal['batas_jam_masuk'] = $request->batas_jam_masuk;
 
         try {
             $jamMasuk->update($inputVal);

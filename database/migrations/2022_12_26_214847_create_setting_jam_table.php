@@ -16,6 +16,7 @@ class CreateSettingjamTable extends Migration
         Schema::create('setting_jam', function (Blueprint $table) {
             $table->id();
             $table->time('jam_masuk')->nullable();
+            $table->time('batas_jam_masuk')->nullable();
             $table->time('jam_pulang')->nullable();
         });
     }

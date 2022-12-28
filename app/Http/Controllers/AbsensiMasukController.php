@@ -31,8 +31,6 @@ class AbsensiMasukController extends Controller
                 ) <  ? ", 100)
         ->first();
 
-        dd($lokasi);
-
         $request->validate([
             'image' => ['required'],
         ]);

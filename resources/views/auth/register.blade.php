@@ -31,6 +31,24 @@
                                         @enderror
                                     </div>
                                     <div class="form-group">
+                                        <input type="text" class="form-control form-control-user @error('alamat') is-invalid @enderror" name="alamat" id="exampleInputEmail"
+                                            placeholder="Alamat" value="{{ old('alamat') }}">
+                                        @error('alamat')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control form-control-user @error('no_hp') is-invalid @enderror" name="no_hp" id="exampleInputEmail"
+                                            placeholder="No hp" value="{{ old('no_hp') }}">
+                                        @error('no_hp')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
                                         <input type="email" class="form-control form-control-user @error('email') is-invalid @enderror" name="email" id="exampleInputEmail"
                                             placeholder="Email Address" value="{{ old('email') }}">
                                         @error('email')

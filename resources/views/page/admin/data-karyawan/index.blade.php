@@ -15,7 +15,8 @@
                     <tr>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Level</th>
+                        <th>Jabatan</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,7 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->role->nama_role }}</td>
+                            <td><a href="{{ route('dataKaryawan.show', $item->id) }}" class="btn btn-primary">detal</a></td>
                         </tr>
                     @endforeach
                 </tbody>

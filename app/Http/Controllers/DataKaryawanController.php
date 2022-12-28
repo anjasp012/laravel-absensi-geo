@@ -47,7 +47,8 @@ class DataKaryawanController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::where('id', $id)->firstOrFail();
+        return view('page.admin.data-karyawan.show', compact('user'));
     }
 
     /**

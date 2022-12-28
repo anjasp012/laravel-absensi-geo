@@ -19,6 +19,7 @@ class AbsensiMasukController extends Controller
      */
     public function __invoke(Request $request)
     {
+        // dd($request->all());
         $settingJam = SettingJam::first();
         $lokasi = SettingLokasi::selectRaw("ST_Distance_Sphere(
                     Point($request->long, $request->lat),
@@ -29,6 +30,8 @@ class AbsensiMasukController extends Controller
                     Point(lng, lat)
                 ) <  ? ", 100)
         ->first();
+
+        dd($lokasi);
 
         $request->validate([
             'image' => ['required'],

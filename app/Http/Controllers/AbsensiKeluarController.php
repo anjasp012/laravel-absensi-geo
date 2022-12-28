@@ -30,11 +30,11 @@ class AbsensiKeluarController extends Controller
         $lokasi = SettingLokasi::selectRaw("ST_Distance_Sphere(
                             Point($request->long, $request->lat),
                             Point(lng, lat)
-                        ) * ? as distance", [50])
+                        ) * ? as distance", [0])
                 ->whereRaw("ST_Distance_Sphere(
                             Point($request->long, $request->lat),
                             Point(lng, lat)
-                        ) <  ? ", 500)
+                        ) <  ? ", 1000)
                 ->first();
 
         $img = $request->image;

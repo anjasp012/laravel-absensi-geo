@@ -14,6 +14,7 @@
                     <div class="d-flex gap-2">
                         <input id="lat" class="form-control" name="lat" type="text" value="{{ old('lat', $lokasi->lat) }}"/>
                         <input id="lng" class="form-control" name="lng" type="text" value="{{ old('lat', $lokasi->lng) }}"/>
+                        <button type="button" class="btn btn-danger" onclick="navigator.geolocation.getCurrentPosition(getPosition)"><i class="fas fa-fw fa-street-view"></i></button>
                         <input type="submit" class="btn btn-primary" value="Update Lokasi">
                     </div>
                 </form>
@@ -36,17 +37,43 @@
 
         var map = new L.Map('map', {
         'center': [lat.value, lng.value],
-        'zoom': 12,
+        'zoom': 18,
         'layers': [tileLayer]
         });
 
         var marker = L.marker([lat.value, lng.value],{
-        draggable: true
+            draggable: true
         }).addTo(map);
 
+        function getPosition(position) {
+            // console.log(position)
+            lat = position.coords.latitude
+            long = position.coords.longitude
+
+            if (marker) {
+                map.removeLayer(marker)
+            }
+
+            marker = L.marker([lat, long],{
+                draggable: true
+            })
+
+            var featureGroup = L.featureGroup([marker]).addTo(map)
+
+            map.fitBounds(featureGroup.getBounds())
+
+            lat.value = lat
+            lng.value = long
+            console.log("Your coordinate is: Lat: " + lat + " Long: " + long)
+            marker.on('dragend', function (e) {
+                    lat.value =  marker.getLatLng().lat
+                    lng.value = marker.getLatLng().lng
+                console.log("Your coordinate is: Lat: " + marker.getLatLng().lat + " Long: " + marker.getLatLng().lng)
+            });
+        }
         marker.on('dragend', function (e) {
-        lat.value = marker.getLatLng().lat;
-        lng.value = marker.getLatLng().lng;
+            lat.value = marker.getLatLng().lat;
+            lng.value = marker.getLatLng().lng;
         });
     </script>
 @endsection

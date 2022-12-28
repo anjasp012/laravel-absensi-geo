@@ -50,7 +50,7 @@ class AbsensiKeluarController extends Controller
 
         $inputVal['foto_keluar'] = $filePath;
         $inputVal['catatan_keluar'] = $request->catatan;
-        $keluar = now();
+        $keluar = now()->toTimeString();
         $inputVal['waktu_keluar'] = $keluar;
         if ($keluar < $settingJam->jam_pulang) {
             $inputVal['keterangan_keluar'] = 'Bolos';

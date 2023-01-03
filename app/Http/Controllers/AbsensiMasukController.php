@@ -52,7 +52,7 @@ class AbsensiMasukController extends Controller
         $inputVal['catatan_masuk'] = $request->catatan;
         $masuk = now()->toTimeString();
         $inputVal['waktu_masuk'] = $masuk;
-        if ($masuk > $settingJam->jam_masuk) {
+        if ($masuk > $settingJam->batas_jam_masuk) {
             $inputVal['keterangan_masuk'] = 'Terlambat';
         }
 

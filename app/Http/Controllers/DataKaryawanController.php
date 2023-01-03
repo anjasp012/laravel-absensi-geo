@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -59,7 +60,9 @@ class DataKaryawanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id', $id)->firstOrFail();
+        $role = Role::all();
+        return view('page.admin.data-karyawan.edit', compact('user', 'role'));
     }
 
     /**
@@ -71,7 +74,28 @@ class DataKaryawanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('id', $id)->firstOrFail();
+        $inputVal = $request->validate([
+            'name' => ['required'],
+            'alamat' => ['required'],
+            'role_id' => ['required'],
+            'no_hp' => ['required'],
+        ]);
+
+        try {
+            $user->update($inputVal);
+            if ($user->role_id == 1) {
+                alert()->success('Berhasil', 'Berhasil Update Data Profile');
+                return redirect(route('home'));
+            } elseif ($user->role_id == 2) {
+                alert()->success('Berhasil', 'Berhasil Update Data Profile');
+                return redirect(route('dataKaryawan.index'));
+            }
+        } catch (\Exception $th) {
+            alert()->error('Gagal', 'Gagal Update Data Profile');
+            return redirect(route('dataKaryawan.index'));
+        }
+
     }
 
     /**

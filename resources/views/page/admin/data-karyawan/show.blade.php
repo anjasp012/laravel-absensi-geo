@@ -35,6 +35,11 @@
                         <label for="jam" class="form-label text-black">No Hp</label>
                         <input readonly type="text" class="form-control" value="{{ $user->no_hp }}">
                     </div>
+                    @if ($user->role_id == 1)
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('dataKaryawan.edit', $user->id) }}" class="btn btn-warning text-end">Edit</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

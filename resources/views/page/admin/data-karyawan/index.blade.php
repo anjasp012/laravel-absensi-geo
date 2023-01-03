@@ -25,7 +25,10 @@
                             <td>{{ $item->name }}</td>
                             <td>{{ $item->email }}</td>
                             <td>{{ $item->role->nama_role }}</td>
-                            <td><a href="{{ route('dataKaryawan.show', $item->id) }}" class="btn btn-primary">detal</a></td>
+                            <td>
+                                <a href="{{ route('dataKaryawan.show', $item->id) }}" class="btn btn-primary">detal</a>
+                                <a href="{{ route('dataKaryawan.edit', $item->id) }}" class="btn btn-warning">Edit</a>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
